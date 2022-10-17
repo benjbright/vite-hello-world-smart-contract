@@ -1,10 +1,68 @@
-import alchemylogo from './assets/alchemylogo.svg'
+import { useEffect, useState } from "react"
+import alchemylogo from "./assets/alchemylogo.svg"
 
 const HelloWorld = () => {
+  // State variables
+  const [walletAddress, setWalletAddress] = useState("")
+  const [status, setStatus] = useState("")
+  const [message, setMessage] = useState("No connection to the network.")
+  const [newMessage, setNewMessage] = useState("")
+
+  //   Called only once on initial render
+  useEffect(() => {}, [])
+
+  const addSmartContractListener = () => {
+    // Set up a listener that watches for the contract's
+    // UpdatedMessages event and updates the UI
+  }
+
+  const addWalletListener = () => {
+    // Set up a listener that detects changes in the user's
+    // Metamask wallet state, such as when a user disconnects
+  }
+
+  const connectWalletPressed = async () => {
+    // Connect the user's wallet to our app
+  }
+
+  const onUpdatePressed = async () => {
+    // function called when user wants to update the message stored in the smart contract
+  }
+
+  //   Component UI
   return (
-    <h3>
-      <div>HelloWorld</div>
-    </h3>
+    <div id="container">
+      <img id="logo" src={alchemylogo}></img>
+      <button id="walletButton" onClick={connectWalletPressed}>
+        {walletAddress.length > 0 ? (
+          "Connected: " +
+          String(walletAddress).substring(0, 6) +
+          "..." +
+          String(walletAddress).substring(38)
+        ) : (
+          <span>Connect Wallet</span>
+        )}
+      </button>
+
+      <h2 style={{ paddingTop: "50px" }}>Current Message:</h2>
+      <p>{message}</p>
+
+      <h2 style={{ paddingTop: "18px" }}>New Message:</h2>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Update the message in your smart contract."
+          onChange={(e) => setNewMessage(e.target.value)}
+          value={newMessage}
+        />
+        <p id="status">{status}</p>
+
+        <button id="publish" onClick={onUpdatePressed}>
+          Update
+        </button>
+      </div>
+    </div>
   )
 }
 export default HelloWorld
