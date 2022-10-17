@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import alchemylogo from "./assets/alchemylogo.svg"
+import { helloWorldContract, loadCurrentMessage } from "./utils/interact"
 
 const HelloWorld = () => {
   // State variables
@@ -9,7 +10,16 @@ const HelloWorld = () => {
   const [newMessage, setNewMessage] = useState("")
 
   //   Called only once on initial render
-  useEffect(() => {}, [])
+  useEffect(() => {
+    console.log(helloWorldContract)
+
+    async function fetchMessage() {
+      const message = await loadCurrentMessage()
+      setMessage(message)
+    }
+
+    fetchMessage()
+  }, [])
 
   const addSmartContractListener = () => {
     // Set up a listener that watches for the contract's
