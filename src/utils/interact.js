@@ -12,14 +12,40 @@ export const helloWorldContract = new ethers.Contract(
   provider
 )
 
-// export const helloWorldContract
-
 export const loadCurrentMessage = async () => {
+  // Make a read call to the smart contract
+  // using the AlchemyProvider and API key
+  // Load the current message stored in the smart contract
   const message = await helloWorldContract.message()
   return message
 }
 
-export const connectWallet = async () => {}
+export const connectWallet = async () => {
+  // Connect the user's Metamask wallet to our dApp
+  if (window.ethereum) {
+    try {
+      const addressArray = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      })
+      const obj = {
+        status: "Write a message in the text-field above.",
+        address: addressArray[0],
+      }
+      return obj
+    } catch (error) {
+      return {
+        address: "",
+        status: error.message,
+      }
+    }
+  } else {
+    return {
+      address: "",
+      status:
+        "Please install Metamask, a virtual ethereum wallet, in your browser.  https://metamask.io/download",
+    }
+  }
+}
 
 export const getCurrentWalletConnected = async () => {}
 

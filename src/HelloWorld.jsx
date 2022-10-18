@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react"
 import alchemylogo from "./assets/alchemylogo.svg"
-import { helloWorldContract, loadCurrentMessage } from "./utils/interact"
+import {
+  helloWorldContract,
+  loadCurrentMessage,
+  connectWallet,
+} from "./utils/interact"
 
 const HelloWorld = () => {
   // State variables
@@ -40,7 +44,10 @@ const HelloWorld = () => {
   }
 
   const connectWalletPressed = async () => {
-    // Connect the user's wallet to our app
+    // Function to connect user's Metamask wallet to our dApp
+    const walletResponse = await connectWallet()
+    setStatus(walletResponse.status)
+    setWalletAddress(walletResponse.address)
   }
 
   const onUpdatePressed = async () => {
