@@ -19,11 +19,19 @@ const HelloWorld = () => {
     }
 
     fetchMessage()
+    addSmartContractListener()
   }, [])
 
   const addSmartContractListener = () => {
     // Set up a listener that watches for the contract's
     // UpdatedMessages event and updates the UI
+    helloWorldContract.on("UpdatedMessages", (oldStr, newStr, event) => {
+      console.log(oldStr, newStr)
+      console.log(event)
+      setMessage(newStr)
+      setNewMessage("")
+      setStatus("Your message has been updated!")
+    })
   }
 
   const addWalletListener = () => {
