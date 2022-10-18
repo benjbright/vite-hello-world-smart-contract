@@ -4,6 +4,8 @@ import {
   helloWorldContract,
   loadCurrentMessage,
   connectWallet,
+  getCurrentWalletConnected,
+  updateMessage,
 } from "./utils/interact"
 
 const HelloWorld = () => {
@@ -15,15 +17,23 @@ const HelloWorld = () => {
 
   //   Called only once on initial render
   useEffect(() => {
-    console.log(helloWorldContract)
+    // console.log(helloWorldContract)
 
     async function fetchMessage() {
       const message = await loadCurrentMessage()
       setMessage(message)
     }
-
     fetchMessage()
+
     addSmartContractListener()
+
+    async function fetchWallet() {
+      const { address, status } = await getCurrentWalletConnected()
+      setWalletAddress(address)
+      setStatus(status)
+    }
+    fetchWallet()
+    addWalletListener()
   }, [])
 
   const addSmartContractListener = () => {
@@ -41,6 +51,27 @@ const HelloWorld = () => {
   const addWalletListener = () => {
     // Set up a listener that detects changes in the user's
     // Metamask wallet state, such as when a user disconnects
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0])
+          setStatus("Write a message in the text-field above.")
+        } else {
+          setWalletAddress("")
+          setStatus("Please connect to Metamask.")
+        }
+      })
+    } else {
+      setStatus(
+        <p>
+          {" "}
+          🦊{" "}
+          <a target="_blank" href={`https://metamask.io/download`}>
+            Please install Metamask, a virtual Ethereum wallet, in your browser.
+          </a>
+        </p>
+      )
+    }
   }
 
   const connectWalletPressed = async () => {
@@ -52,6 +83,8 @@ const HelloWorld = () => {
 
   const onUpdatePressed = async () => {
     // function called when user wants to update the message stored in the smart contract
+    const { status } = await updateMessage(walletAddress, newMessage)
+    setStatus(status)
   }
 
   //   Component UI
