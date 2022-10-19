@@ -2,6 +2,8 @@
 
 Alchemy Hello World smart contract project - front end Vite / React
 
+The deployed app is hosted on Vercel - https://vite-hello-world-smart-contract.vercel.app/
+
 ## Notes and key learning points
 
 ### useEffect hook

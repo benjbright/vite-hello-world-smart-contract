@@ -90,6 +90,7 @@ export const getCurrentWalletConnected = async () => {
           ethereum wallet, in your browser.
         </span>
       ),
+      connected: false,
     }
   }
 }
