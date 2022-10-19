@@ -128,9 +128,10 @@ const HelloWorld = () => {
           {loading && <Icon name="circle notched" loading />}
           <Message.Content>
             <Message.Header>
-              {connected ? "Welcome to Web3!" : "Please connect your Metamask"}
+              {/* {connected ? "Welcome to Web3!" : "Please connect your Metamask"} */}
             </Message.Header>
-            {connected ? status : ""}
+            {/* {connected ? status : ""} */}
+            {status}
           </Message.Content>
         </Message>
 
