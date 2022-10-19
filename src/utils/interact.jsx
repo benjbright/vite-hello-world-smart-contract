@@ -86,7 +86,7 @@ export const getCurrentWalletConnected = async () => {
         <span>
           {" "}
           Please install
-          <a href="https://metamask.io/download">Metamask</a>, a virtual
+          <a href="https://metamask.io/download"> Metamask</a>, a virtual
           ethereum wallet, in your browser.
         </span>
       ),
