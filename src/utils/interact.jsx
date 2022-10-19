@@ -64,11 +64,13 @@ export const getCurrentWalletConnected = async () => {
         return {
           address: addressArray[0],
           status: "Write a message in the text-field above.",
+          connected: true,
         }
       } else {
         return {
           address: "",
           status: "Please connect to Metamask",
+          connected: false,
         }
       }
     } catch (error) {

@@ -7,6 +7,7 @@ import {
   getCurrentWalletConnected,
   updateMessage,
 } from "./utils/interact"
+import { Message, Icon } from "semantic-ui-react"
 
 const HelloWorld = () => {
   // State variables
@@ -14,6 +15,8 @@ const HelloWorld = () => {
   const [status, setStatus] = useState("")
   const [message, setMessage] = useState("No connection to the network.")
   const [newMessage, setNewMessage] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [connected, setConnected] = useState(false)
 
   //   Called only once on initial render
   useEffect(() => {
@@ -28,9 +31,10 @@ const HelloWorld = () => {
     addSmartContractListener()
 
     async function fetchWallet() {
-      const { address, status } = await getCurrentWalletConnected()
+      const { address, status, connected } = await getCurrentWalletConnected()
       setWalletAddress(address)
       setStatus(status)
+      setConnected(connected)
     }
     fetchWallet()
     addWalletListener()
@@ -56,9 +60,11 @@ const HelloWorld = () => {
         if (accounts.length > 0) {
           setWalletAddress(accounts[0])
           setStatus("Write a message in the text-field above.")
+          setConnected(true)
         } else {
           setWalletAddress("")
           setStatus("Please connect to Metamask.")
+          setConnected(false)
         }
       })
     } else {
@@ -83,8 +89,11 @@ const HelloWorld = () => {
 
   const onUpdatePressed = async () => {
     // function called when user wants to update the message stored in the smart contract
+    setLoading(true)
+    setStatus("Waiting for block confirmation...")
     const { status } = await updateMessage(walletAddress, newMessage)
     setStatus(status)
+    setLoading(false)
   }
 
   //   Component UI
@@ -114,7 +123,16 @@ const HelloWorld = () => {
           onChange={(e) => setNewMessage(e.target.value)}
           value={newMessage}
         />
-        <p id="status">{status}</p>
+        {/* <p id="status">{status}</p> */}
+        <Message icon>
+          {loading && <Icon name="circle notched" loading />}
+          <Message.Content>
+            <Message.Header>
+              {connected ? "Welcome to Web3!" : "Please connect your Metamask"}
+            </Message.Header>
+            {connected ? status : ""}
+          </Message.Content>
+        </Message>
 
         <button id="publish" onClick={onUpdatePressed}>
           Update
