@@ -64,13 +64,13 @@ export const getCurrentWalletConnected = async () => {
         return {
           address: addressArray[0],
           status: "Write a message in the text-field above.",
-          connected: true,
+          // connected: true,
         }
       } else {
         return {
           address: "",
           status: "Please connect to Metamask",
-          connected: false,
+          // connected: false,
         }
       }
     } catch (error) {
@@ -90,7 +90,6 @@ export const getCurrentWalletConnected = async () => {
           ethereum wallet, in your browser.
         </span>
       ),
-      connected: false,
     }
   }
 }

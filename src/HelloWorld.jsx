@@ -31,10 +31,10 @@ const HelloWorld = () => {
     addSmartContractListener()
 
     async function fetchWallet() {
-      const { address, status, connected } = await getCurrentWalletConnected()
+      const { address, status } = await getCurrentWalletConnected()
       setWalletAddress(address)
       setStatus(status)
-      setConnected(connected)
+      // setConnected(connected)
     }
     fetchWallet()
     addWalletListener()
