@@ -1,11 +1,12 @@
 import contractAbi from "./contract-abi.json"
 import { ethers } from "ethers"
 
-const VITE_API_KEY = import.meta.env.VITE_API_KEY
-const VITE_URL = import.meta.env.VITE_URL
+// const VITE_API_KEY = import.meta.env.VITE_API_KEY
+// const VITE_URL = import.meta.env.VITE_URL
+const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY
 const contractAddress = "0x83f4E84354AB2FaDfe464c8d24871A11d1832201"
 
-const provider = new ethers.providers.AlchemyProvider("goerli", VITE_API_KEY)
+const provider = new ethers.providers.AlchemyProvider("goerli", ALCHEMY_API_KEY)
 
 // const provider = new ethers.providers.JsonRpcProvider(VITE_URL)
 
