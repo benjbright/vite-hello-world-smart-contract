@@ -21,6 +21,8 @@ const HelloWorld = () => {
   //   Called only once on initial render
   useEffect(() => {
     // console.log(helloWorldContract)
+    // console.log(import.meta.env.ALCHEMY_API_KEY)
+    // console.log(import.meta.env.VITE_API_KEY)
 
     async function fetchMessage() {
       const message = await loadCurrentMessage()
